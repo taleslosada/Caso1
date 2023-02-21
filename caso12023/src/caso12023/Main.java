@@ -2,6 +2,19 @@ package caso12023;
 
 public class Main {
 
+
+    private static String input(String message) {
+        try {
+            System.out.print(message);
+            BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+            return lector.readLine();
+        } catch (IOException e) {
+            System.out.println("Error de lectura en la consola.");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 	public static void main(String[] args) {
 		
 		
@@ -16,6 +29,14 @@ public class Main {
 		Buffer b1 = new Buffer(tamañoBuffers);
 		Buffer b2 = new Buffer(tamañoBuffers);
 		Buffer bfinal = new Buffer(productos+1);
+
+		Integer procesos = Integer.parseInt(input("\nIngrese el número total de procesos deseados.\n> "));
+        System.out.println("Habrá 1 proceso naranja y " + (procesos-1) + " procesos azules.\n");
+
+        productosxproceso = Integer.parseInt(input("Ingrese la cantidad de productos por proceso a crear.\n> "));
+
+        tamañoBuffers = Integer.parseInt(input("\nIngrese el tamaño de los primeros 2 buffers.\n> "));
+        System.out.println("Los buffers 1 y 2 tendrán tamaño de " + tamañoBuffers + "; el 3 será ilimitado.\n")
 		
 		
 		for (int i=1;i<5;i++) {
