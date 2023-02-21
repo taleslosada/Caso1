@@ -39,12 +39,18 @@ public class Proceso extends Thread{
 		this.color = color;
 		this.etapa = etapa;
 		this.productos = productos;
-		this.produccion = produccion;
 		this.buzonOut = buzonout;
 	}
 	
 	
 	
+	public Proceso(String color, int etapa, int productosaprocesar, Buffer bfinal) {
+		color = "rojo";
+		this.etapa = etapa;
+		productos = productosaprocesar;
+		buzonOut = bfinal; //recibe el buffer final como buffer de entrada de flujo de mensajes		
+	}
+
 	public void run() {
 		//EL THREAD HACE LO QUE TIENE QUE HACER SEGUN SU ETAPA
 		switch (etapa) {
