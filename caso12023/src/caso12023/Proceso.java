@@ -11,7 +11,9 @@ public class Proceso extends Thread{
 
 	
 
-	private Buffer buzon;
+	private Buffer buzonIn;
+	
+	private Buffer buzonOut;
 	
 	private String color;
 	
@@ -25,19 +27,20 @@ public class Proceso extends Thread{
 	
 	public Proceso(Buffer buzon, String color, int etapa,int productos) {
 		super();
-		this.buzon = buzon;
+		this.buzonIn = buzon;
 		this.color = color;
 		this.etapa = etapa;
 		this.productos = productos;
 	}
 	
-	public Proceso(Buffer buzon, String color, int etapa, int productos, CyclicBarrier produccion) {
+	public Proceso(Buffer buzonin, String color, int etapa, int productos, Buffer buzonout) {
 		super();
-		this.buzon = buzon;
+		this.buzonIn = buzonin;
 		this.color = color;
 		this.etapa = etapa;
 		this.productos = productos;
 		this.produccion = produccion;
+		this.buzonOut = buzonout;
 	}
 	
 	
@@ -131,21 +134,21 @@ public class Proceso extends Thread{
 	public Producto recoger() {
 		if (color.equals("Naranja")) {
 			//Si el proceso es de color naranja recoge los mensajes de forma semiactiva
-			return buzon.retirarSemiactivo();
+			return buzonIn.retirarSemiactivo();
 		} else if (color.equals("Azul")) {
 			//Si el proceso es de color azul recoge los mensajes de forma pasiva
-			return buzon.retirarPasivo();
+			return buzonIn.retirarPasivo();
 		} else {
 			//Si el proceso es de color rojo recoge los mensajes de forma activa
-			return buzon.retirarActivo();
+			return buzonIn.retirarActivo();
 		}
 	}
 	
 	public void enviar(Producto producto) {
 		if (color.equals("Naranja")) {
-			buzon.mandarSemiactivo(producto);
+			buzonOut.mandarSemiactivo(producto);
 		} else {
-			buzon.mandarPasivo(producto);
+			buzonOut.mandarPasivo(producto);
 		}
 	}
 
